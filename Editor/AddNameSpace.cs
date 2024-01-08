@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Assets.Editor
 {
-	public class AddNameSpace : AssetModificationProcessor
+	public class AddNamespace : AssetModificationProcessor
 	{
 		public static void OnWillCreateAsset(string path)
 		{
