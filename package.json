@@ -1,6 +1,6 @@
 {
     "name": "com.vgsoftware.vgbasepackage",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "displayName": "VG Software Base Package",
     "description": "This is a base package used by VG Software projects",
     "keywords": [

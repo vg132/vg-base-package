@@ -33,7 +33,7 @@ namespace Assets.Editor
 		{
 			// if any script was changed then database should be reloaded before entering play mode
 			_doReload = true;
-			if(!_files.Contains(e.Name))
+			if (!_files.Contains(e.Name))
 			{
 				_files.Add(e.Name);
 				Debug.Log($"File change detected ({e.Name}), will refresh asset database when entering play mode.");
@@ -63,15 +63,17 @@ namespace Assets.Editor
 		{
 			if (_doReload)
 			{
-				Debug.Log("Asset database refresh");
-				_doReload = false;
-				_files.Clear();
-				AssetDatabase.Refresh();
+				Reload();
 			}
 		}
 
 		[MenuItem("File/Refresh asset database", priority = 212)]
 		private static void Build()
+		{
+			Reload();
+		}
+
+		private static void Reload()
 		{
 			Debug.Log("Asset database refresh");
 			_doReload = false;

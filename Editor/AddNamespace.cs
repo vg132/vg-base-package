@@ -1,55 +1,117 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Editor
+namespace VGSoftware.Assets.Scripts.Editor
 {
-	public class AddNamespace : AssetModificationProcessor
+	public class AddNamespace : AssetPostprocessor
 	{
-		public static void OnWillCreateAsset(string path)
+		public static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths, bool didDomainReload)
+		{
+			var updated = false;
+			foreach (string path in importedAssets)
+			{
+				var namespaceAddedOrUpdated = UpdateOrAddNamespace(path);
+				if (namespaceAddedOrUpdated)
+				{
+					updated = true;
+				}
+			}
+			foreach (string path in movedAssets)
+			{
+				var namespaceAddedOrUpdated = UpdateOrAddNamespace(path);
+				if (namespaceAddedOrUpdated)
+				{
+					updated = true;
+				}
+			}
+			if (updated)
+			{
+				AssetDatabase.Refresh();
+			}
+		}
+
+		private static bool UpdateOrAddNamespace(string relativePath)
 		{
 			try
 			{
-				if (!path.EndsWith(".cs.meta"))
+				if (string.IsNullOrEmpty(relativePath) || !relativePath.ToLower().EndsWith(".cs"))
 				{
-					return;
+					return false;
 				}
-				path = path.Replace(".meta", "");
-				var index = path.LastIndexOf(".");
-				if (index < 0)
-				{
-					return;
-				}
-				var file = path.Substring(index);
-				index = Application.dataPath.LastIndexOf("Assets");
-				path = Application.dataPath.Substring(0, index) + path;
-				if(!System.IO.File.Exists(path))
+				var index = Application.dataPath.LastIndexOf("Assets");
+				var fullPath = $"{Application.dataPath.Substring(0, index)}{relativePath}";
+				if (!File.Exists(fullPath))
 				{
 					Debug.Log("Unable to update namespace, file not created");
-					return;
+					return false;
 				}
-				file = System.IO.File.ReadAllText(path);
-
-				var lastPart = path.Substring(path.IndexOf("Assets"));
-
-				var namespaceParts = lastPart.Substring(0, lastPart.LastIndexOf('/')).Split('/');
-				if (namespaceParts.Any())
+				var namespaceName = GenerateNamespace(relativePath);
+				if (!string.IsNullOrEmpty(namespaceName))
 				{
-					var namespaceName = string.Join(".", namespaceParts);
-					if (!string.IsNullOrEmpty(EditorSettings.projectGenerationRootNamespace))
+					var lines = File.ReadAllLines(fullPath);
+					var newLines = new List<string>();
+					var namespaceAdded = false;
+					var addClosingCurlyBrace = false;
+					foreach (var line in lines)
 					{
-						namespaceName = $"{EditorSettings.projectGenerationRootNamespace}.{namespaceName}";
+						if (line.StartsWith("namespace ") && !namespaceAdded && !line.Trim().Equals(namespaceName, StringComparison.CurrentCultureIgnoreCase))
+						{
+							namespaceAdded = true;
+							newLines.Add(namespaceName);
+						}
+						else if (!namespaceAdded && line.StartsWith("public class"))
+						{
+							namespaceAdded = true;
+							addClosingCurlyBrace = true;
+							newLines.Add(namespaceName);
+							newLines.Add("{");
+							newLines.Add(line);
+						}
+						else if (line.StartsWith("public class") && !namespaceAdded)
+						{
+							return false;
+						}
+						else
+						{
+							newLines.Add(line);
+						}
 					}
-					file = file.Replace("#NAMESPACE#", namespaceName);
-					System.IO.File.WriteAllText(path, file);
-					AssetDatabase.Refresh();
+					if (addClosingCurlyBrace)
+					{
+						newLines.Add("}");
+					}
+					if (!namespaceAdded)
+					{
+						return false;
+					}
+					File.WriteAllLines(fullPath, newLines);
+					return true;
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Debug.LogWarning($"Unable to update namespace in script file: '{ex.Message}'");
 			}
+			return false;
+		}
+
+		private static string GenerateNamespace(string path)
+		{
+			var namespaceParts = path.Substring(0, path.LastIndexOf('/')).Split('/');
+			if (!namespaceParts.Any())
+			{
+				return null;
+			}
+			var namespaceName = string.Join(".", namespaceParts);
+			if (!string.IsNullOrEmpty(EditorSettings.projectGenerationRootNamespace))
+			{
+				namespaceName = $"namespace {EditorSettings.projectGenerationRootNamespace}.{namespaceName}";
+			}
+			return namespaceName;
 		}
 	}
 }
