@@ -3,7 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Editor
+namespace VGSoftware.Framework.Editor
 {
 	[InitializeOnLoad]
 	public class AutoRefresher
@@ -32,11 +32,14 @@ namespace Assets.Editor
 		private static void OnAssetsChanged(object sender, FileSystemEventArgs e)
 		{
 			// if any script was changed then database should be reloaded before entering play mode
+			if (!_doReload)
+			{
+				Debug.Log($"File change detected ({e.Name}), will refresh asset database when entering play mode.");
+			}
 			_doReload = true;
 			if (!_files.Contains(e.Name))
 			{
 				_files.Add(e.Name);
-				Debug.Log($"File change detected ({e.Name}), will refresh asset database when entering play mode.");
 			}
 		}
 

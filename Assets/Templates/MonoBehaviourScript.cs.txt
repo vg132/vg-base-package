@@ -1,0 +1,14 @@
+using UnityEngine;
+
+#ROOTNAMESPACEBEGIN#
+  public class #SCRIPTNAME# : MonoBehaviour
+  {
+      private void Start()
+      {
+      }
+
+      private void Update()
+      {
+      }
+  }
+#ROOTNAMESPACEEND#
