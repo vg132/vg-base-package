@@ -250,7 +250,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 37
+  controlID: 40
   draggingID: 0
 --- !u!114 &11
 MonoBehaviour:
@@ -363,7 +363,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/VGSoftware/Editor
+    - Assets/VGSoftware
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -371,18 +371,18 @@ MonoBehaviour:
     m_ImportLogFlags: 0
     m_FilterByTypeIntersection: 0
   m_ViewMode: 1
-  m_StartGridSize: 16
+  m_StartGridSize: 96
   m_LastFolders:
-  - Assets/VGSoftware/Editor
-  m_LastFoldersGridSize: 16
+  - Assets/VGSoftware
+  m_LastFoldersGridSize: 96
   m_LastProjectPath: E:\Unity\vgsoftware-base-packages
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 90af0000
-    m_LastClickedID: 44944
-    m_ExpandedIDs: 000000003ee9000040e9000042e9000044e9000046e9000048e90000
+    m_SelectedIDs: 42e90000
+    m_LastClickedID: 59714
+    m_ExpandedIDs: 0000000038b000003ab000003cb000003eb00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -411,7 +411,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003ee9000040e9000042e9000044e9000046e9000048e90000
+    m_ExpandedIDs: 0000000038b000003ab000003cb000003eb00000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -466,7 +466,7 @@ MonoBehaviour:
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
     m_ScrollPosition: {x: 0, y: 0}
-    m_GridSize: 16
+    m_GridSize: 96
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 199
 --- !u!114 &14
@@ -559,7 +559,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0cfbffff
+      m_ExpandedIDs: 7a95ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -576,7 +576,7 @@ MonoBehaviour:
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_TrimLeadingAndTrailingWhitespace: 0
-        m_ClientGUIView: {fileID: 0}
+        m_ClientGUIView: {fileID: 4}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1149,9 +1149,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -0.45584497, y: -0.16859667, z: 0.0022373572}
+    m_Target: {x: -5.482422, y: 0.19299899, z: 0.033032708}
     speed: 2
-    m_Value: {x: -0.45584497, y: -0.16859667, z: 0.0022373572}
+    m_Value: {x: -5.482422, y: 0.19299899, z: 0.033032708}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1201,9 +1201,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 9.776265
+    m_Target: 6.6967416
     speed: 2
-    m_Value: 9.776265
+    m_Value: 6.6967416
   m_Ortho:
     m_Target: 1
     speed: 2

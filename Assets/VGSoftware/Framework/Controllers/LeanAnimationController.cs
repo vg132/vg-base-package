@@ -20,10 +20,10 @@ namespace VGSoftware.Framework.Controllers
 			Left = 2,
 			Right = 4,
 
-			OffScreenTop = 7,
-			OffScreenBottom = 9,
+			OffscreenTop = 7,
+			OffscreenBottom = 9,
 			OffscreenLeft = 3,
-			OffScreenRight = 5,
+			OffscreenRight = 5,
 		}
 
 		[Serializable]
